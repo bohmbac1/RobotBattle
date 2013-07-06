@@ -110,6 +110,7 @@ public class FinalSimulation {
 		robots.add(straightLines);
 		
 		//-----------------------------------------------------------------------------------------
+		System.out.println("testing git branch");
 		
 		Thread update = new Thread(new ArenaMotion(arenaToView));
 		threads.add(update);
