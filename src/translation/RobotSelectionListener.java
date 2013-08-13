@@ -1,5 +1,7 @@
 package translation;
 
+import gui.View;
+
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 

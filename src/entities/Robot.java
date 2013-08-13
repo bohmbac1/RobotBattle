@@ -15,6 +15,7 @@ import java.util.TreeMap;
 
 import javax.imageio.ImageIO;
 
+import math.PolygonUtils;
 import math.Tuple;
 
 /**
@@ -131,7 +132,6 @@ public class Robot {
 
 	/**
 	 * Lock the position
-	 * @param time Time in milliseconds
 	 */
 	public void updatePosition() {
 		if (lastTimeUpdated == FIRST_TIME_UPDATED) {
@@ -631,18 +631,7 @@ public class Robot {
 				return retv;
 			}
 
-			Polygon attackPolygon = attackPerforming.determineAttackPosition(this);
-			Rectangle bounds = attackPolygon.getBounds();
-
-			for (int i = 0; i < bounds.width; i++) {
-				for (int j = 0; j < bounds.height; j++) {
-					Point p = new Point(bounds.x + i, bounds.y + j);
-					if (attackPolygon.contains(p) && !this.containsPoint(p)) {
-						retv.add(p);
-					}
-				}
-			}
-			return retv;
+            return PolygonUtils.getPointsInPolygon(attackPerforming.determineAttackPosition(this));
 		}
 	}
 
@@ -678,6 +667,14 @@ public class Robot {
 		}
 	}
 
+    /**
+     * Get a list of the points that the robot is occupying.
+     * @return
+     */
+    public List<Point> getPointsOccupied() {
+        return PolygonUtils.getPointsInPolygon(getRobotPolygon());
+    }
+
 	public Color getAttackColor() {
 
 		synchronized (performingAttackLock) {
@@ -708,6 +705,17 @@ public class Robot {
 	public Point getMotion() {
 		return motion;
 	}
+
+    /**
+     * set the motion to 0. Set lastTimeUpdated = FIRST_TIME_UPDATED
+     * so that next time it starts moving, it won't make a huge jump.
+     */
+    public void stopMotion() {
+        synchronized (positionLock) {
+            motion = new Point(0, 0);
+            lastTimeUpdated = FIRST_TIME_UPDATED;
+        }
+    }
 	
 	public Robot setMotion(Point p) {
 		synchronized(positionLock) {
