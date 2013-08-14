@@ -12,6 +12,7 @@ import math.ImageLibrary;
 
 import entities.Arena;
 import entities.Robot;
+import gui.View;
 
 /**
  * Translate the information in the arena into the view.

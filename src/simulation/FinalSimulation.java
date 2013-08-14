@@ -9,13 +9,13 @@ import java.util.List;
 import threads.ArenaMotion;
 import threads.FunctionEverySomeSeconds;
 import translation.ArenaToView;
-import translation.View;
 
 import attacks.AttackLibrary;
 
 import entities.Arena;
 import entities.Function1;
 import entities.Robot;
+import gui.View;
 
 public class FinalSimulation {
 	public static void main(String[] args) {
@@ -110,7 +110,6 @@ public class FinalSimulation {
 		robots.add(straightLines);
 		
 		//-----------------------------------------------------------------------------------------
-		System.out.println("testing git branch");
 		
 		Thread update = new Thread(new ArenaMotion(arenaToView));
 		threads.add(update);

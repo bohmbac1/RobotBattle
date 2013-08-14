@@ -18,11 +18,11 @@ import attacks.AttackPosition;
 import attacks.ChainsawAttackPosition;
 
 import translation.ArenaToView;
-import translation.View;
 
 import entities.Arena;
 import entities.Attack;
 import entities.Robot;
+import gui.View;
 
 public class TestAttackPosition {
 	/*

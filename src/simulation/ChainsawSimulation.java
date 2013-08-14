@@ -6,13 +6,13 @@ import java.io.IOException;
 import threads.ArenaMotion;
 import threads.FunctionEverySomeSeconds;
 import translation.ArenaToView;
-import translation.View;
 
 import attacks.AttackLibrary;
 
 import entities.Arena;
 import entities.Function1;
 import entities.Robot;
+import gui.View;
 
 public class ChainsawSimulation {
 	public static void main (String[] args) {
