@@ -1,0 +1,12 @@
+For the Arena:
+    -Two separate lists, Robots that are alive, and robots that are dead.
+    -Have a double array of spots on the arena. Each hold information about what is there.
+
+For the robots:
+    -Implement listening for each robot.
+    -When one robot does an attack, every robot that is listening leans that attack.
+    -Robot cannot listen while performing an attack.
+
+For the display:
+    -Robots display attacks known.
+    -Separate list for alive and dead robots.

@@ -28,7 +28,7 @@ public class RobotAttacks implements Runnable {
 				System.out.println("InterruptedException occurd sleeping in RobotAttacks");
 				return;
 			}
-			List<Robot> robots = arena.getRobots();
+			List<Robot> robots = arena.getAliveRobots();
 			int robotIndex = (int) (Math.random() * robots.size());
 			robots.get(robotIndex).performRandomAttack();
 			System.out.println(robots.get(robotIndex).getName() + " num(" + robotIndex + ") performing " 

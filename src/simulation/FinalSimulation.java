@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import gui.View;
 import threads.ArenaMotion;
 import threads.FunctionEverySomeSeconds;
 import translation.ArenaToView;

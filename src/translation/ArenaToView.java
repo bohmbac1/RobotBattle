@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import gui.View;
 import math.ImageLibrary;
 
 import entities.Arena;
@@ -34,8 +35,8 @@ public class ArenaToView {
 	private void updateViewRobots() {
 		view.clearRobots();
 		
-		synchronized(arena.getRobots()) {
-			for (Robot r : arena.getRobots()) {
+		synchronized(arena.getAliveRobots()) {
+			for (Robot r : arena.getAliveRobots()) {
 				view.addRobot(r);
 			}
 		}
@@ -61,11 +62,11 @@ public class ArenaToView {
 	}
 
 	public void updateView() throws IOException {
-		if (arena.getRobots().size() != view.getRobots().size()) {
+		if (arena.getAliveRobots().size() != view.getRobots().size()) {
 			updateViewRobots();
 		}
 		BufferedImage image = ImageIO.read(arena.getImageFile());
-		for (Robot r : arena.getRobots()) {
+		for (Robot r : arena.getAliveRobots()) {
 				BufferedImage rotatedRobot = ImageLibrary.rotateImage(r.getImage(), r.getDirectionFacing() - 270);
 				image = ImageLibrary.overlayImages(image, rotatedRobot,
 						(int) (r.getxPos() - rotatedRobot.getWidth() / 2), 
