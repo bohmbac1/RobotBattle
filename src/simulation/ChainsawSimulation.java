@@ -3,11 +3,12 @@ package simulation;
 import java.awt.Point;
 import java.io.IOException;
 
+import libraries.AttackLibrary;
+
 import threads.ArenaMotion;
 import threads.FunctionEverySomeSeconds;
 import translation.ArenaToView;
 
-import attacks.AttackLibrary;
 
 import entities.Arena;
 import entities.Function1;

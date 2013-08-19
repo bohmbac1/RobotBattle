@@ -6,12 +6,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import libraries.AttackLibrary;
+
 import gui.View;
 import threads.ArenaMotion;
 import threads.FunctionEverySomeSeconds;
 import translation.ArenaToView;
 
-import attacks.AttackLibrary;
 
 import entities.Arena;
 import entities.Function1;

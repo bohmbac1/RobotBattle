@@ -46,7 +46,7 @@ public class ArenaToView {
 		Color attackColor = r.getAttackColor();
 		List<Point> attackPoints = r.attackPoints();
 		for (Point point : attackPoints) {
-			if (arena.containsPoint(point)) {
+			if (arena.containsPoint(point) && !r.containsPoint(point)) {
 				image.setRGB(point.x, point.y, attackColor.getRGB());
 			}
 		}

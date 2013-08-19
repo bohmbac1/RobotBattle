@@ -30,7 +30,7 @@ public class Arena {
         height = h;
         aliveRobots = new ArrayList<Robot>();
         deadRobots = new ArrayList<Robot>();
-        tiles = new ArenaTile[width][height];
+        //tiles = new ArenaTile[width][height];
 
         inMotion = false;
         setUpImageFile();
@@ -70,7 +70,7 @@ public class Arena {
             aliveRobots.add(r);
         else
             deadRobots.add(r);
-        updateOccupiedTiles(r);
+        //updateOccupiedTiles(r);
     }
 
     public synchronized void updateOccupiedTiles(Robot r) {
@@ -78,6 +78,11 @@ public class Arena {
         List<Point> occupiedPoints = PolygonUtils.getPointsInPolygon(bounds);
         for (Point point : occupiedPoints) {
             if (this.containsPoint(point)) {
+            	if (tiles == null) System.out.println("tiles is null");
+            	System.out.println("tiles.length = " + tiles.length);
+            	System.out.println("tiles.height = " + tiles[489].length);
+            	System.out.println("(" + point.x + "," + point.y + ")");
+            	System.out.println("arenaTile = " + tiles[489][0]);
                 tiles[point.x][point.y].addRobot(r);
             }
         }
@@ -139,12 +144,12 @@ public class Arena {
      * @param r
      */
     public synchronized void updateRobotPosition(Robot r) {
-        takeRobotAndAttackOffTiles(r);
+        //takeRobotAndAttackOffTiles(r);
 
         r.updatePosition();
         bounceRobotOffWalls(r);
 
-        putRobotAndAttackOnTiles(r);
+        //putRobotAndAttackOnTiles(r);
     }
 
     /**

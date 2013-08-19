@@ -129,6 +129,21 @@ public class Robot {
 			}
 		}
 	}
+	
+	public static BufferedImage makeImage(int w, int h, Color c) {
+		BufferedImage retv = new BufferedImage(w, h, BufferedImage.TYPE_4BYTE_ABGR); 
+		for (int i = 0; i < w; i++) {
+			for (int j = 0; j < h; j++) {
+				if (j < h/ 5) {
+					retv.setRGB(i, j, Color.white.getRGB());
+				}
+				else {
+					 retv.setRGB(i, j, c.getRGB());
+				}
+			}
+		}
+		return retv;
+	}
 
 	/**
 	 * Lock the position

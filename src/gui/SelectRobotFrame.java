@@ -1,8 +1,11 @@
 package gui;
 
+import entities.Arena;
 import entities.Robot;
+import libraries.RobotLibrary;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,21 +18,26 @@ import java.util.List;
  * Date: 8/12/13
  * Time: 9:56 AM
  * To change this template use File | Settings | File Templates.
+ * 
+ * 
+ * The JFrame is for selecting robots. It gives an options of robots and allows the 
+ * user to select some of them to put into the battle.
  */
-public class SelectRobotFrame {
-    private JFrame frame;
+public class SelectRobotFrame extends LayeredFrame {
+	private RobotLibrary robotLibrary;
+
     private JPanel panel;
     private List<JCheckBox> robotChecks;
+    private List<JTextField> robotCounts;
     private JButton selectButton;
 
-    private List<Robot> possibleRobots;
-    private List<Robot> chosenRobots;
-
-    public SelectRobotFrame(List<Robot> possibleRobots, List<Robot> chosenRobots) {
-        this.possibleRobots = possibleRobots;
-        this.chosenRobots = chosenRobots;
+    public SelectRobotFrame(MainFrame parent) {
+    	super(parent);
+    	
+    	this.robotLibrary = new RobotLibrary(((MainFrame)parent).getArena());
 
         robotChecks = new ArrayList<JCheckBox>();
+        robotCounts = new ArrayList<JTextField>();
 
         frame = new JFrame("Select Robot");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -41,18 +49,27 @@ public class SelectRobotFrame {
         frame.pack();
     }
 
+    /**
+     * Set up the panel for what it does!
+     */
     private void setUpPanel() {
-        panel = new JPanel();
+        panel = new JPanel(new GridBagLayout());
 
         GridBagConstraints c = new GridBagConstraints();
         c.insets = new Insets(10, 10, 10, 10);
         c.gridx = 0;
         c.gridy = 0;
 
-        for (Robot possible : possibleRobots) {
-            JCheckBox checkbox = new JCheckBox(possible.getName());
+        for (String robotName : robotLibrary.getRobotNames()) {
+        	c.gridx = 0;
+            JCheckBox checkbox = new JCheckBox(robotName);
             robotChecks.add(checkbox);
             panel.add(checkbox, c);
+            JTextField numberArea = new JTextField("1");
+            numberArea.setVisible(false);
+            robotCounts.add(numberArea);
+            c.gridx++;
+            panel.add(numberArea, c);
             c.gridy++;
         }
 
@@ -60,23 +77,30 @@ public class SelectRobotFrame {
         selectButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                List<Robot> toRemove = new ArrayList<Robot>();
 
-                for (JCheckBox box : robotChecks) {
+                for (int i = 0; i < robotChecks.size(); i++) {
+                	JCheckBox box = robotChecks.get(i);
+                	
                     if (box.isSelected()) {
-                        Robot robot = possibleRobots.get(robotChecks.indexOf(box));
-                        chosenRobots.add(robot);
-                        toRemove.add(robot);
+                        addRobotToChosenRobots(box.getText());
                     }
                 }
 
-                for (Robot r : toRemove) {
-                    possibleRobots.remove(r);
-                }
                 frame.setVisible(false);
                 frame.dispose();
             }
+
+			private void addRobotToChosenRobots(String robotName) {
+				Robot robot = robotLibrary.getRobotByName(robotName);
+				((MainFrame)parent).addRobot(robot);
+				for(Thread thread : robotLibrary.getThreadsForRobot(robot)) {
+					System.out.println("adding thread for robot : " + robotName);
+					((MainFrame)parent).addThread(thread);
+				}
+			}
         });
+        
+        panel.add(selectButton);
     }
 
 }
